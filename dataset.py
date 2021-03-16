@@ -255,7 +255,7 @@ class TennisSet:
             list : a list of strings
 
         """
-        names_file = os.path.join('data', 'classes.names')
+        names_file = os.path.join('Tennis','data', 'classes.names')
         with open(names_file, 'r') as f:
             classes = [line.strip() for line in f.readlines()]
         return classes
