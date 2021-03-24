@@ -214,7 +214,7 @@ def main(_argv):
 
     # Setup Metrics
     test_metrics = [Accuracy(label_names=test_set.classes),
-                    mx.metric.TopKAccuracy(5, label_names=test_set.classes),
+                    mx.metric.TopKAccuracy(3, label_names=test_set.classes),
                     Accuracy(name='accuracy_no', label_names=test_set.classes[1:], ignore_labels=[0]),
                     Accuracy(name='accuracy_o', label_names=test_set.classes[0],
                              ignore_labels=list(range(1, len(test_set.classes)))),
