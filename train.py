@@ -91,7 +91,8 @@ flags.DEFINE_string('temp_pool', None,
 
 flags.DEFINE_integer('max_batches', -1,  # for 0031
                      'Only do this many batches then break')
-
+flags.DEFINE_string('frames', 'data',
+                    'frames directory')
 
 def main(_argv):
     FLAGS.every = [int(s) for s in FLAGS.every]
@@ -165,19 +166,19 @@ def main(_argv):
 
     # Load datasets
     if FLAGS.temp_pool not in ['max', 'mean']:
-        train_set = TennisSet(split='train', transform=transform_train, every=FLAGS.every[0], padding=FLAGS.padding,
+        train_set = TennisSet(frames=FLAGS.frames, split='train', transform=transform_train, every=FLAGS.every[0], padding=FLAGS.padding,
                               stride=FLAGS.stride, window=FLAGS.window, model_id=FLAGS.model_id, split_id=FLAGS.split_id,
                               balance=balance_train, flow=bool(FLAGS.flow), feats_model=FLAGS.feats_model, save_feats=FLAGS.save_feats)
 
         logging.info(train_set)
 
-        val_set = TennisSet(split='val', transform=transform_test, every=FLAGS.every[1], padding=FLAGS.padding,
+        val_set = TennisSet(frames=FLAGS.frames, split='val', transform=transform_test, every=FLAGS.every[1], padding=FLAGS.padding,
                             stride=FLAGS.stride, window=FLAGS.window, model_id=FLAGS.model_id, split_id=FLAGS.split_id,
                             balance=False, flow=bool(FLAGS.flow), feats_model=FLAGS.feats_model, save_feats=FLAGS.save_feats)
 
         logging.info(val_set)
 
-    test_set = TennisSet(split='test', transform=transform_test, every=FLAGS.every[2], padding=FLAGS.padding,
+    test_set = TennisSet(frames=FLAGS.frames, split='test', transform=transform_test, every=FLAGS.every[2], padding=FLAGS.padding,
                          stride=FLAGS.stride, window=FLAGS.window, model_id=FLAGS.model_id, split_id=FLAGS.split_id,
                          balance=False, flow=bool(FLAGS.flow), feats_model=FLAGS.feats_model, save_feats=FLAGS.save_feats)
 

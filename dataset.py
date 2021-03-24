@@ -14,7 +14,7 @@ from utils.video import video_to_frames
 
 
 class TennisSet:
-    def __init__(self, root='data', captions=False, transform=None, split='train', every=1, balance=True, padding=1,
+    def __init__(self, frames='data', root='data', captions=False, transform=None, split='train', every=1, balance=True, padding=1,
                  stride=1, window=1, model_id='0000', split_id='02', flow=False, max_cap_len=-1, vocab=None,
                  inference=False, feats_model=None, save_feats=False):
         self._root = root
@@ -31,7 +31,7 @@ class TennisSet:
         self._save_feats = save_feats
 
         self._videos_dir = os.path.join(root, "videos")
-        self._frames_dir = os.path.join(root, "frames")
+        self._frames_dir = os.path.join(frames, "frames")
         self._flow_dir = os.path.join(root, "flow")
         self._splits_dir = os.path.join(root, "splits")
         self._annotations_dir = os.path.join(root, "annotations")
