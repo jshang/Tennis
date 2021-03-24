@@ -73,6 +73,8 @@ flags.DEFINE_string('flow', '',
                     'How to use flow, "" for none, "only" for no rgb, "sixc" for six channel inp, "twos" for twostream')
 flags.DEFINE_string('temp_pool', None,
                     'mean, max or gru.')
+flags.DEFINE_string('frames', 'data',
+                    'frames directory')
 
 
 def main(_argv):
@@ -104,7 +106,7 @@ def main(_argv):
                 TwoStreamNormalize()
             ])
 
-    test_set = TennisSet(split=FLAGS.split, transform=transform_test, every=FLAGS.every[2], padding=FLAGS.padding,
+    test_set = TennisSet(frames=FLAGS.frames, split=FLAGS.split, transform=transform_test, every=FLAGS.every[2], padding=FLAGS.padding,
                          stride=FLAGS.stride, window=FLAGS.window, model_id=FLAGS.model_id, split_id=FLAGS.split_id,
                          balance=False, flow=bool(FLAGS.flow), feats_model=FLAGS.feats_model, save_feats=FLAGS.save_feats)
 
