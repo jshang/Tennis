@@ -298,23 +298,24 @@ def main(_argv):
     trainer = gluon.Trainer(model.collect_params(), 'sgd',
                             {'learning_rate': FLAGS.lr, 'momentum': FLAGS.momentum, 'wd': FLAGS.wd})
 
+    print('test_set.classes: ', test_set.classes)
     # Setup Metric/s
     metrics = [Accuracy(label_names=test_set.classes),
-               mx.metric.TopKAccuracy(5, label_names=test_set.classes),
+               mx.metric.TopKAccuracy(3, label_names=test_set.classes),
                Accuracy(name='accuracy_no', label_names=test_set.classes[1:], ignore_labels=[0]),
                Accuracy(name='accuracy_o', label_names=test_set.classes[0],
                         ignore_labels=list(range(1, len(test_set.classes)))),
                PRF1(label_names=test_set.classes)]
 
     val_metrics = [Accuracy(label_names=test_set.classes),
-                   mx.metric.TopKAccuracy(5, label_names=test_set.classes),
+                   mx.metric.TopKAccuracy(3, label_names=test_set.classes),
                    Accuracy(name='accuracy_no', label_names=test_set.classes[1:], ignore_labels=[0]),
                    Accuracy(name='accuracy_o', label_names=test_set.classes[0],
                             ignore_labels=list(range(1, len(test_set.classes)))),
                    PRF1(label_names=test_set.classes)]
 
     test_metrics = [Accuracy(label_names=test_set.classes),
-                    mx.metric.TopKAccuracy(5, label_names=test_set.classes),
+                    mx.metric.TopKAccuracy(3, label_names=test_set.classes),
                     Accuracy(name='accuracy_no', label_names=test_set.classes[1:], ignore_labels=[0]),
                     Accuracy(name='accuracy_o', label_names=test_set.classes[0],
                              ignore_labels=list(range(1, len(test_set.classes)))),
@@ -428,6 +429,7 @@ def train_model(model, train_set, train_data, metrics, val_set, val_data, val_me
 
                 # update metric
                 for metric in metrics:
+                    #print(len(labels), len(outputs))
                     metric.update(labels, outputs)
 
                 # logging
